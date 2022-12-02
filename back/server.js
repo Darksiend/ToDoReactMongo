@@ -1,11 +1,13 @@
-const express = require("express");
+import express from "express";
+import cors from "cors";
+import morgan from "morgan";
+import mongoose from "mongoose";
+
 const app = express();
 const port = 3001;
-const cors = require("cors");
-const morgan = require("morgan");
-const mongoose = require("mongoose");
-const Todo = require("./models/todo");
-import * as ToDoController from "./Controllers/ToDoController.js";
+// const Todo = require("./models/todo");
+import * as ToDoController from "./controllers/ToDoController.js";
+import { createToDoValidation } from "./validations/validations.js";
 mongoose
   .connect(
     "mongodb+srv://darksiend:123@mycluster.eswzs4i.mongodb.net/?retryWrites=true&w=majority"
@@ -15,14 +17,14 @@ mongoose
   })
   .catch((e) => console.log("DB Error", e));
 app.use(cors());
+
 app.use(morgan("dev"));
+app.use(express.json());
 const urlencodedParser = express.urlencoded({ extended: true });
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.get("/", ToDoController.getAll);
 
-app.route("/create").post("/create");
+app.post("/create", createToDoValidation, ToDoController.create);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

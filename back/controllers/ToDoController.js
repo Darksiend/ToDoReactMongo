@@ -1,9 +1,13 @@
-import ToDoModel from "../models/todo";
+import ToDoModel from "../models/todo.js";
 
 export const getAll = async (req, res) => {
   try {
     const todos = await ToDoModel.find();
-  } catch (err) {}
+    res.json(todos);
+  } catch (err) {
+    console.log(e);
+    res.status(500).json({ msg: "Unsuccessful Get All Todos" });
+  }
 };
 
 export const create = async (req, res) => {
