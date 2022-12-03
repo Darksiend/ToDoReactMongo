@@ -8,29 +8,38 @@ const ItemList = () => {
 
   const onChangeHandler = (event) => {
     if (event.target.name == "todoName") {
+      setNameToDo(event.target.value);
+    } else if (event.target.name == "todoDescription") {
+      setDescriptionToDo(event.target.value);
     }
   };
   const addTodo = () => {
-    fetch("http://localhost:3001", {
+    fetch("http://localhost:3001/create", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       method: "POST",
-      body: JSON.stringify({ todoName: 1, todoDescription: 2 }),
+      body: JSON.stringify({
+        todoName: nameToDo,
+        todoDescription: descriptionToDo,
+      }),
     })
       .then(function (res) {
-        console.log(res);
+        getAllToDo();
       })
       .catch(function (res) {
         console.log(res);
       });
   };
 
-  useEffect(() => {
+  const getAllToDo = () => {
     fetch("http://localhost:3001")
       .then((res) => res.json())
       .then((res) => setTodo(res));
+  };
+  useEffect(() => {
+    getAllToDo();
   }, []);
 
   return (
@@ -49,7 +58,9 @@ const ItemList = () => {
           className="input"
           type="text"
         />
-        <button className="btn">Add ToDo!</button>
+        <button onClick={addTodo} className="btn">
+          Add ToDo!
+        </button>
         {todo.map((item) => (
           <div className="itemListContainer" key={item._id}>
             <Item item={item} />
