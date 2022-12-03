@@ -3,7 +3,13 @@ import "./ItemList.css";
 import Item from "./Item";
 const ItemList = () => {
   const [todo, setTodo] = useState([]);
-  const onChangeHandler = () => {};
+  const [nameToDo, setNameToDo] = useState("");
+  const [descriptionToDo, setDescriptionToDo] = useState("");
+
+  const onChangeHandler = (event) => {
+    if (event.target.name == "todoName") {
+    }
+  };
   const addTodo = () => {
     fetch("http://localhost:3001", {
       headers: {
@@ -26,12 +32,23 @@ const ItemList = () => {
       .then((res) => res.json())
       .then((res) => setTodo(res));
   }, []);
+
   return (
     <div className="main">
       <div className="ItemList">
         <div className="logo">ToDos</div>
-        <input className="input" type="text" />
-        <input className="input" type="text" />
+        <input
+          onChange={onChangeHandler}
+          className="input"
+          name="todoName"
+          type="text"
+        />
+        <input
+          onChange={onChangeHandler}
+          name="todoDescription"
+          className="input"
+          type="text"
+        />
         <button className="btn">Add ToDo!</button>
         {todo.map((item) => (
           <div className="itemListContainer" key={item._id}>
