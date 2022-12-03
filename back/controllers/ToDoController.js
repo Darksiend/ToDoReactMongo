@@ -23,3 +23,5 @@ export const create = async (req, res) => {
     res.status(500).json({ msg: "Cant create todo!" });
   }
 };
+
+export const deleteToDo = async (req, res) => {};

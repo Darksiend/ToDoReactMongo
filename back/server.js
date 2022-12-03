@@ -26,6 +26,8 @@ app.get("/", ToDoController.getAll);
 
 app.post("/create", createToDoValidation, ToDoController.create);
 
+app.delete("/delte");
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

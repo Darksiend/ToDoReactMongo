@@ -42,6 +42,25 @@ const ItemList = () => {
     getAllToDo();
   }, []);
 
+  function delteTodo(id) {
+    fetch("http://localhost:3001/delete", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+      body: JSON.stringify({
+        id: id,
+      }),
+    })
+      .then(function (res) {
+        getAllToDo();
+      })
+      .catch(function (res) {
+        console.log(res);
+      });
+  }
+
   return (
     <div className="main">
       <div className="ItemList">
@@ -62,7 +81,7 @@ const ItemList = () => {
           Add ToDo!
         </button>
         {todo.map((item) => (
-          <div className="itemListContainer" key={item._id}>
+          <div onClick={delteTodo} className="itemListContainer" key={item._id}>
             <Item item={item} />
           </div>
         ))}
