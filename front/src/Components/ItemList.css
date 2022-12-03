@@ -1,4 +1,35 @@
+.main {
+  display: flex;
+  justify-content: center;
+}
+
 .ItemList {
-    font-size: 88px;
-    display: flex;
+  font-size: 88px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+}
+
+.input {
+  width: 100%;
+  outline: none;
+  height: 40px;
+  font-size: 32px;
+  border-radius: 5px;
+}
+.btn {
+  width: 60%;
+  outline: none;
+  border: none;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.todoName {
+  font-size: 24px;
+}
+
+.todoDescription {
+  font-size: 20px;
 }
