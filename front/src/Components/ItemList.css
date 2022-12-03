@@ -2,7 +2,9 @@
   display: flex;
   justify-content: center;
 }
-
+.itemListContainer {
+  width: 100%;
+}
 .ItemList {
   font-size: 88px;
   display: flex;

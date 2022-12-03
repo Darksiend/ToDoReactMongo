@@ -1,7 +1,25 @@
 import React, { useEffect, useState } from "react";
 import "./ItemList.css";
+import Item from "./Item";
 const ItemList = () => {
   const [todo, setTodo] = useState([]);
+  const onChangeHandler = () => {};
+  const addTodo = () => {
+    fetch("http://localhost:3001", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({ todoName: 1, todoDescription: 2 }),
+    })
+      .then(function (res) {
+        console.log(res);
+      })
+      .catch(function (res) {
+        console.log(res);
+      });
+  };
 
   useEffect(() => {
     fetch("http://localhost:3001")
@@ -15,14 +33,11 @@ const ItemList = () => {
         <input className="input" type="text" />
         <input className="input" type="text" />
         <button className="btn">Add ToDo!</button>
-        {todo.map((item) => {
-          return (
-            <div>
-              <div className="todoName">{item.todoName}</div>
-              <div className="todoDescription">{item.todoDescription}</div>
-            </div>
-          );
-        })}
+        {todo.map((item) => (
+          <div className="itemListContainer" key={item._id}>
+            <Item item={item} />
+          </div>
+        ))}
       </div>
     </div>
   );
